@@ -1,0 +1,22 @@
+name: kubectl-set
+author: 'QGX Pagamentos'
+description: This action provides kubectl for Github Actions.
+inputs:
+  kubectl-version:
+    description: Version of the kubectl CLI to use
+    required: false
+    default: v1.22.5
+  base64-kube-config:
+    description: A base64 encoded reference to your authorization file (~/.kube/config)
+    required: true
+branding:
+  icon: 'list'
+  color: 'purple'
+runs:
+  using: composite
+  steps:
+    - run: ${GITHUB_ACTION_PATH}/setup.sh
+      shell: bash
+      env:
+        BASE64_KUBE_CONFIG: ${{ inputs.base64-kube-config }}
+        KUBE_VERSION: ${{ inputs.kubectl-version }}
